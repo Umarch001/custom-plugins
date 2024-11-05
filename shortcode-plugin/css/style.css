@@ -1,0 +1,15 @@
+p.code-text {
+    color: red;
+    font-family: 'Inter';
+    font-size: 40px;
+    text-align: center;
+    font-weight: 600;
+}
+
+h3.code-text {
+    color: blue;
+    font-family: 'Figtree';
+    font-size: 28px;
+    line-height: 40px;
+    font-weight: 700;
+}
