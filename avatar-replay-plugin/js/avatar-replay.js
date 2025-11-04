@@ -53,6 +53,7 @@
             // Show the overlay with fade-in effect
             this.overlay.style.display = 'flex';
             var self = this;
+            // Small delay to ensure CSS transition is triggered after display change
             setTimeout(function() {
                 self.overlay.classList.add('active');
             }, 10);

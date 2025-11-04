@@ -1,6 +1,7 @@
 <?php
 /*
     * Plugin Name: Avatar Replay Screen
+    * Plugin URI: https://github.com/Umarch001/custom-plugins
     * Description: Displays a replay overlay after avatar stream completion with a 2-second delay before unloading.
     * Author: Muhammad Umar Farooq
     * Version: 1.0
