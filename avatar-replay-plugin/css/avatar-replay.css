@@ -1,0 +1,111 @@
+/* Avatar Replay Plugin Styles */
+
+.avatar-player-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+#avatar-player-container {
+    position: relative;
+    width: 100%;
+    background-color: #000;
+}
+
+#avatar-video-player {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Replay Overlay */
+.avatar-replay-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-opaque overlay */
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 10;
+}
+
+.avatar-replay-overlay.active {
+    opacity: 1;
+}
+
+.avatar-replay-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Replay Button */
+.avatar-replay-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 20px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.avatar-replay-button:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+}
+
+.avatar-replay-button:active {
+    transform: scale(0.95);
+}
+
+.avatar-replay-button svg {
+    margin-bottom: 10px;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+}
+
+.avatar-replay-button span {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .avatar-replay-button svg {
+        width: 50px;
+        height: 50px;
+    }
+
+    .avatar-replay-button span {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .avatar-replay-button svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .avatar-replay-button span {
+        font-size: 14px;
+    }
+
+    .avatar-replay-button {
+        padding: 15px;
+    }
+}
