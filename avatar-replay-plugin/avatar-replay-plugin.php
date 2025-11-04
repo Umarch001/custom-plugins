@@ -39,24 +39,29 @@ add_shortcode('avatar_player', 'avatar_player_shortcode');
 
 function avatar_player_shortcode($attributes) {
     $attributes = shortcode_atts(array(
-        'poster' => plugin_dir_url(__FILE__) . 'images/default-poster.jpg',
+        'poster' => '',
         'stream_url' => '',
     ), $attributes, 'avatar_player');
 
+    // Generate unique ID for this player instance
+    static $player_count = 0;
+    $player_count++;
+    $player_id = 'avatar-player-' . $player_count;
+
     ob_start();
     ?>
-    <div class="avatar-player-wrapper" data-poster="<?php echo esc_url($attributes['poster']); ?>" data-stream-url="<?php echo esc_url($attributes['stream_url']); ?>">
-        <div id="avatar-player-container">
-            <video id="avatar-video-player" poster="<?php echo esc_url($attributes['poster']); ?>">
+    <div class="avatar-player-wrapper" data-player-id="<?php echo esc_attr($player_id); ?>" data-poster="<?php echo esc_url($attributes['poster']); ?>" data-stream-url="<?php echo esc_url($attributes['stream_url']); ?>">
+        <div id="<?php echo esc_attr($player_id); ?>-container" class="avatar-player-container">
+            <video id="<?php echo esc_attr($player_id); ?>-video" class="avatar-video-player" <?php if (!empty($attributes['poster'])): ?>poster="<?php echo esc_url($attributes['poster']); ?>"<?php endif; ?> controls>
                 <?php if (!empty($attributes['stream_url'])): ?>
                     <source src="<?php echo esc_url($attributes['stream_url']); ?>" type="video/mp4">
                 <?php endif; ?>
                 Your browser does not support the video tag.
             </video>
         </div>
-        <div id="avatar-replay-overlay" class="avatar-replay-overlay" style="display: none;">
+        <div id="<?php echo esc_attr($player_id); ?>-overlay" class="avatar-replay-overlay" style="display: none;">
             <div class="avatar-replay-content">
-                <button id="avatar-replay-button" class="avatar-replay-button">
+                <button id="<?php echo esc_attr($player_id); ?>-replay-button" class="avatar-replay-button">
                     <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="30" cy="30" r="29" stroke="white" stroke-width="2"/>
                         <path d="M25 20L40 30L25 40V20Z" fill="white"/>

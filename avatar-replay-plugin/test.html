@@ -62,15 +62,15 @@
             </ul>
         </div>
         
-        <div class="avatar-player-wrapper" data-poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect width='800' height='450' fill='%234A90E2'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='40' fill='white'%3EAvatar Poster%3C/text%3E%3C/svg%3E" data-stream-url="">
-            <div id="avatar-player-container">
-                <video id="avatar-video-player" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect width='800' height='450' fill='%234A90E2'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='40' fill='white'%3EAvatar Poster%3C/text%3E%3C/svg%3E" controls>
+        <div class="avatar-player-wrapper" data-player-id="avatar-player-1" data-poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect width='800' height='450' fill='%234A90E2'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='40' fill='white'%3EAvatar Poster%3C/text%3E%3C/svg%3E" data-stream-url="">
+            <div id="avatar-player-1-container" class="avatar-player-container">
+                <video id="avatar-player-1-video" class="avatar-video-player" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect width='800' height='450' fill='%234A90E2'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='40' fill='white'%3EAvatar Poster%3C/text%3E%3C/svg%3E" controls>
                     Your browser does not support the video tag.
                 </video>
             </div>
-            <div id="avatar-replay-overlay" class="avatar-replay-overlay" style="display: none;">
+            <div id="avatar-player-1-overlay" class="avatar-replay-overlay" style="display: none;">
                 <div class="avatar-replay-content">
-                    <button id="avatar-replay-button" class="avatar-replay-button">
+                    <button id="avatar-player-1-replay-button" class="avatar-replay-button">
                         <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="30" cy="30" r="29" stroke="white" stroke-width="2"/>
                             <path d="M25 20L40 30L25 40V20Z" fill="white"/>
@@ -90,15 +90,16 @@
     <script src="js/avatar-replay.js"></script>
     <script>
         function testVideoEnd() {
-            var video = document.getElementById('avatar-video-player');
+            var video = document.getElementById('avatar-player-1-video');
             var event = new Event('ended');
             video.dispatchEvent(event);
             console.log('Video end event simulated');
         }
         
         function testNewSession() {
-            if (window.AvatarReplayManager) {
-                window.AvatarReplayManager.startNewSession();
+            var wrapper = document.querySelector('.avatar-player-wrapper');
+            if (wrapper && wrapper.avatarReplayManager) {
+                wrapper.avatarReplayManager.startNewSession();
                 console.log('New session started');
             }
         }

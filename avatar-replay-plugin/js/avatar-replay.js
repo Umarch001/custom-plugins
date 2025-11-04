@@ -1,33 +1,24 @@
 (function() {
     'use strict';
 
-    // Avatar Replay Manager
-    var AvatarReplayManager = {
-        video: null,
-        overlay: null,
-        replayButton: null,
-        wrapper: null,
-        posterUrl: '',
-        streamUrl: '',
-        replayDelay: 2000, // 2 seconds delay before showing overlay
+    // Avatar Replay Manager Constructor
+    function AvatarReplayManager(wrapper) {
+        this.wrapper = wrapper;
+        this.playerId = wrapper.getAttribute('data-player-id');
+        this.video = document.getElementById(this.playerId + '-video');
+        this.overlay = document.getElementById(this.playerId + '-overlay');
+        this.replayButton = document.getElementById(this.playerId + '-replay-button');
+        this.posterUrl = wrapper.getAttribute('data-poster') || '';
+        this.streamUrl = wrapper.getAttribute('data-stream-url') || '';
+        this.replayDelay = 2000; // 2 seconds delay before showing overlay
 
-        init: function() {
-            this.video = document.getElementById('avatar-video-player');
-            this.overlay = document.getElementById('avatar-replay-overlay');
-            this.replayButton = document.getElementById('avatar-replay-button');
-            this.wrapper = document.querySelector('.avatar-player-wrapper');
-
-            if (!this.video || !this.overlay || !this.replayButton || !this.wrapper) {
-                return;
-            }
-
-            // Get poster and stream URL from wrapper data attributes
-            this.posterUrl = this.wrapper.getAttribute('data-poster') || '';
-            this.streamUrl = this.wrapper.getAttribute('data-stream-url') || '';
-
+        if (this.video && this.overlay && this.replayButton) {
             this.bindEvents();
-        },
+        }
+    }
 
+    // Instance methods
+    AvatarReplayManager.prototype = {
         bindEvents: function() {
             var self = this;
 
@@ -129,16 +120,32 @@
         }
     };
 
+    // Initialize all avatar players on the page
+    function initializeAvatarPlayers() {
+        var wrappers = document.querySelectorAll('.avatar-player-wrapper');
+        var managers = [];
+        
+        for (var i = 0; i < wrappers.length; i++) {
+            var manager = new AvatarReplayManager(wrappers[i]);
+            managers.push(manager);
+            
+            // Store manager instance on the wrapper for external access
+            wrappers[i].avatarReplayManager = manager;
+        }
+        
+        return managers;
+    }
+
     // Initialize when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
-            AvatarReplayManager.init();
+            window.avatarReplayManagers = initializeAvatarPlayers();
         });
     } else {
-        AvatarReplayManager.init();
+        window.avatarReplayManagers = initializeAvatarPlayers();
     }
 
-    // Expose to global scope for external access
+    // Expose constructor for external access
     window.AvatarReplayManager = AvatarReplayManager;
 })();
 
