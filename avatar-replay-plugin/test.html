@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatar Replay Plugin Test</title>
+    <link rel="stylesheet" href="css/avatar-replay.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        .test-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .description {
+            background: #e8f4f8;
+            padding: 15px;
+            border-left: 4px solid #2196F3;
+            margin-bottom: 20px;
+        }
+        .test-controls {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 5px;
+        }
+        .test-controls button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            cursor: pointer;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        .test-controls button:hover {
+            background: #1976D2;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Avatar Replay Plugin Test</h1>
+        <div class="description">
+            <strong>Test Instructions:</strong>
+            <ul>
+                <li>Click "Simulate Video End" button to trigger the stream end event</li>
+                <li>After 2 seconds, a replay overlay should appear with the poster image</li>
+                <li>Click the "Replay" button to restart the video</li>
+                <li>The overlay should fade out and video should play from the beginning</li>
+            </ul>
+        </div>
+        
+        <div class="avatar-player-wrapper" data-player-id="avatar-player-1" data-poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect width='800' height='450' fill='%234A90E2'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='40' fill='white'%3EAvatar Poster%3C/text%3E%3C/svg%3E" data-stream-url="">
+            <div id="avatar-player-1-container" class="avatar-player-container">
+                <video id="avatar-player-1-video" class="avatar-video-player" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='450'%3E%3Crect width='800' height='450' fill='%234A90E2'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='40' fill='white'%3EAvatar Poster%3C/text%3E%3C/svg%3E" controls>
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div id="avatar-player-1-overlay" class="avatar-replay-overlay" style="display: none;">
+                <div class="avatar-replay-content">
+                    <button id="avatar-player-1-replay-button" class="avatar-replay-button">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="30" cy="30" r="29" stroke="white" stroke-width="2"/>
+                            <path d="M25 20L40 30L25 40V20Z" fill="white"/>
+                        </svg>
+                        <span>Replay</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="test-controls">
+            <button onclick="testVideoEnd()">Simulate Video End</button>
+            <button onclick="testNewSession()">Test New Session</button>
+        </div>
+    </div>
+
+    <script src="js/avatar-replay.js"></script>
+    <script>
+        function testVideoEnd() {
+            var video = document.getElementById('avatar-player-1-video');
+            var event = new Event('ended');
+            video.dispatchEvent(event);
+            console.log('Video end event simulated');
+        }
+        
+        function testNewSession() {
+            var wrapper = document.querySelector('.avatar-player-wrapper');
+            if (wrapper && wrapper.avatarReplayManager) {
+                wrapper.avatarReplayManager.startNewSession();
+                console.log('New session started');
+            }
+        }
+    </script>
+</body>
+</html>
