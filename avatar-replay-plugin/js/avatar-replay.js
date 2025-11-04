@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+(function() {
     'use strict';
 
     // Avatar Replay Manager
@@ -61,8 +61,9 @@ jQuery(document).ready(function($) {
 
             // Show the overlay with fade-in effect
             this.overlay.style.display = 'flex';
+            var self = this;
             setTimeout(function() {
-                document.getElementById('avatar-replay-overlay').classList.add('active');
+                self.overlay.classList.add('active');
             }, 10);
         },
 
@@ -116,9 +117,16 @@ jQuery(document).ready(function($) {
         }
     };
 
-    // Initialize the manager
-    AvatarReplayManager.init();
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            AvatarReplayManager.init();
+        });
+    } else {
+        AvatarReplayManager.init();
+    }
 
     // Expose to global scope for external access
     window.AvatarReplayManager = AvatarReplayManager;
-});
+})();
+
