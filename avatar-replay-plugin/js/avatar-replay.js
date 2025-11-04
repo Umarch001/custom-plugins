@@ -113,7 +113,19 @@
             }
             
             this.video.load();
-            this.video.play();
+            
+            // Play the video with proper promise handling
+            var playPromise = this.video.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.then(function() {
+                    // Playback started successfully
+                    console.log('New session started');
+                }).catch(function(error) {
+                    // Auto-play was prevented
+                    console.log('New session play prevented:', error);
+                });
+            }
         }
     };
 

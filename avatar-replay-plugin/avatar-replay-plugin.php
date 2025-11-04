@@ -16,7 +16,7 @@ function avatar_replay_enqueue_scripts() {
     wp_enqueue_script(
         'avatar-replay-js',
         plugin_dir_url(__FILE__) . 'js/avatar-replay.js',
-        array('jquery'),
+        array(),
         '1.0.0',
         true
     );
